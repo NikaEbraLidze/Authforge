@@ -36,6 +36,22 @@ npm run format:check   # Prettier check
 - **Async/await** throughout. No callbacks, no `.then()` chains.
 - **Single responsibility:** Each file exports one primary class or interface.
 
+## Comments
+
+- Add comments for **why**, not **what**. The code should be self-explanatory for _what_ it does.
+- Every file must have a **top-level doc comment** explaining the module's purpose and role in the system.
+- Add comments for: security-critical decisions, non-obvious business logic, interface contract notes, and any workaround or trade-off.
+- Do NOT over-comment obvious code (e.g., `// increment counter` above `count++`).
+- Use `/** JSDoc */` for public classes, methods, and exported functions. Use `//` for inline clarifications.
+
+## Git & Commits
+
+- **Commit after each logical step** in the build order (e.g., after completing migrations, after completing PasswordHasher, etc.).
+- **Commit message format:** `<type>(<scope>): <short description>` — types: `feat`, `fix`, `refactor`, `docs`, `chore`, `test`.
+- **Scope** = the module or area (e.g., `migrations`, `core`, `stores`, `adapters`, `types`).
+- **Examples:** `feat(migrations): add idempotent table creation`, `feat(core): implement bcrypt PasswordHasher`.
+- Keep commits atomic — one logical change per commit.
+
 ## Database
 
 - All tables prefixed with `authforge_` (configurable via `tablePrefix`).
