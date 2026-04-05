@@ -87,8 +87,8 @@ Follow this order when implementing. Each step builds on the previous:
 6. ~~TokenService (`src/core/TokenService.ts`)~~ DONE
 7. ~~KnexUserStore (`src/stores/knex/KnexUserStore.ts`)~~ DONE
 8. ~~KnexRoleStore (`src/stores/knex/KnexRoleStore.ts`)~~ DONE
-9. UserManager (`src/core/UserManager.ts`)
-10. RoleManager (`src/core/RoleManager.ts`)
+9. ~~UserManager (`src/core/UserManager.ts`)~~ DONE
+10. ~~RoleManager (`src/core/RoleManager.ts`)~~ DONE
 11. NestJS adapter (`src/adapters/nestjs/`)
 12. Express adapter (`src/adapters/express/`)
 13. Barrel export (`src/index.ts`) — uncomment as implementations land
