@@ -82,11 +82,11 @@ Follow this order when implementing. Each step builds on the previous:
 1. ~~Project setup (package.json, tsconfig, etc.)~~ DONE
 2. ~~Types (`src/types/index.ts`)~~ DONE
 3. ~~Interfaces (`src/interfaces/`)~~ DONE
-4. Migrations (`src/migrations/tables.ts`)
-5. PasswordHasher (`src/core/PasswordHasher.ts`)
-6. TokenService (`src/core/TokenService.ts`)
-7. KnexUserStore (`src/stores/knex/KnexUserStore.ts`)
-8. KnexRoleStore (`src/stores/knex/KnexRoleStore.ts`)
+4. ~~Migrations (`src/migrations/tables.ts`)~~ DONE
+5. ~~PasswordHasher (`src/core/PasswordHasher.ts`)~~ DONE
+6. ~~TokenService (`src/core/TokenService.ts`)~~ DONE
+7. ~~KnexUserStore (`src/stores/knex/KnexUserStore.ts`)~~ DONE
+8. ~~KnexRoleStore (`src/stores/knex/KnexRoleStore.ts`)~~ DONE
 9. UserManager (`src/core/UserManager.ts`)
 10. RoleManager (`src/core/RoleManager.ts`)
 11. NestJS adapter (`src/adapters/nestjs/`)
