@@ -9,5 +9,7 @@ export interface IUserStore {
   delete(id: string): Promise<void>;
   saveToken(data: SaveTokenData): Promise<string>;
   findToken(userId: string, type: TokenType): Promise<UserToken | null>;
+  /** Find a token by its SHA-256 hash — used for refresh token validation where userId is unknown */
+  findTokenByHash(tokenHash: string): Promise<UserToken | null>;
   consumeToken(tokenId: string): Promise<void>;
 }
