@@ -66,8 +66,11 @@ export class TokenService implements ITokenService {
       stamp: user.securityStamp,
     };
 
-    // Cast expiresIn to satisfy jsonwebtoken's StringValue type from the 'ms' package
-    const options: SignOptions = { expiresIn: this.expiresIn as SignOptions['expiresIn'] };
+    // Pin algorithm to HS256 to prevent algorithm-agility attacks (e.g., alg:none, RSA/HMAC confusion)
+    const options: SignOptions = {
+      algorithm: 'HS256',
+      expiresIn: this.expiresIn as SignOptions['expiresIn'],
+    };
     return jwt.sign(payload, this.jwtSecret, options);
   }
 
@@ -102,7 +105,10 @@ export class TokenService implements ITokenService {
    */
   async validateAccessToken(token: string): Promise<TokenPayload | null> {
     try {
-      const payload = jwt.verify(token, this.jwtSecret) as TokenPayload;
+      // Pin algorithms to prevent accepting tokens signed with unexpected algorithms
+      const payload = jwt.verify(token, this.jwtSecret, {
+        algorithms: ['HS256'],
+      }) as TokenPayload;
 
       // Verify the user still exists and their security stamp hasn't rotated
       const user = await this.userStore.findById(payload.sub);
@@ -122,8 +128,10 @@ export class TokenService implements ITokenService {
   /**
    * Validate a raw refresh token and return the associated userId.
    *
-   * Looks up the token by its SHA-256 hash. The token must not be expired
-   * and must not have been previously consumed (used_at must be null).
+   * Finds the token by hash, then atomically consumes it (single-use).
+   * If two parallel requests race to validate the same token, only one
+   * will succeed — the atomic consumeToken (WHERE used_at IS NULL) ensures
+   * the second request gets false and returns null.
    *
    * Returns null if the token is invalid, expired, or already consumed.
    */
@@ -132,8 +140,12 @@ export class TokenService implements ITokenService {
     const storedToken = await this.userStore.findTokenByHash(tokenHash);
 
     if (!storedToken) return null;
-    if (storedToken.usedAt !== null) return null;
     if (storedToken.expiresAt <= new Date()) return null;
+
+    // Atomic consumption prevents race conditions: only one concurrent
+    // request can successfully consume the token
+    const consumed = await this.userStore.consumeToken(storedToken.id);
+    if (!consumed) return null;
 
     return storedToken.userId;
   }

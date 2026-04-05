@@ -11,5 +11,6 @@ export interface IUserStore {
   findToken(userId: string, type: TokenType): Promise<UserToken | null>;
   /** Find a token by its SHA-256 hash — used for refresh token validation where userId is unknown */
   findTokenByHash(tokenHash: string): Promise<UserToken | null>;
-  consumeToken(tokenId: string): Promise<void>;
+  /** Atomically consume a token. Returns true if consumed, false if already used (race condition). */
+  consumeToken(tokenId: string): Promise<boolean>;
 }

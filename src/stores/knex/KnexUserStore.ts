@@ -161,13 +161,20 @@ export class KnexUserStore implements IUserStore {
   }
 
   /**
-   * Mark a token as consumed by setting `used_at`.
-   * Consumed tokens are rejected by findToken/findTokenByHash queries,
-   * enforcing single-use semantics.
+   * Atomically mark a token as consumed by setting `used_at`.
+   *
+   * The WHERE clause includes `used_at IS NULL` so that concurrent requests
+   * racing to consume the same token will have at most one succeed —
+   * the second UPDATE matches zero rows and returns false.
+   *
+   * Returns true if the token was consumed, false if it was already used.
    */
-  async consumeToken(tokenId: string): Promise<void> {
-    await this.knex(this.userTokens)
+  async consumeToken(tokenId: string): Promise<boolean> {
+    const affectedRows = await this.knex(this.userTokens)
       .where('id', tokenId)
+      .whereNull('used_at')
       .update({ used_at: new Date() });
+
+    return affectedRows > 0;
   }
 }

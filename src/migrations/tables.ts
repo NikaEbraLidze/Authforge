@@ -87,6 +87,9 @@ export async function createTables(
       table.timestamp('expires_at', { useTz: true }).notNullable();
       table.timestamp('used_at', { useTz: true }).nullable();
       table.timestamp('created_at', { useTz: true }).notNullable().defaultTo(knex.fn.now());
+
+      // Index for efficient lookups by hash (used by findTokenByHash in refresh token validation)
+      table.index('token_hash');
     });
   }
 }
