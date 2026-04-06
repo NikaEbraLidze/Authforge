@@ -94,7 +94,7 @@ Follow this order when implementing. Each step builds on the previous:
 13. ~~Barrel export (`src/index.ts`) — uncomment as implementations land~~ DONE
 14. ~~Unit tests (`tests/unit/`)~~ DONE
 15. ~~Integration tests (`tests/integration/`)~~ DONE
-16. README.md
+16. ~~README.md~~ DONE
 
 ## Do NOT
 
