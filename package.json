@@ -4,6 +4,17 @@
   "description": "ASP.NET Core Identity-inspired authentication & user management library for Node.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./nestjs": "./dist/adapters/nestjs/index.js",
+    "./express": "./dist/adapters/express/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      "nestjs": ["dist/adapters/nestjs/index.d.ts"],
+      "express": ["dist/adapters/express/index.d.ts"]
+    }
+  },
   "files": [
     "dist"
   ],

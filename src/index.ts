@@ -20,15 +20,16 @@ export type {
   IEmailService,
 } from './interfaces';
 
-// Core (will be exported as implementations are built)
-// export { UserManager } from './core/UserManager';
-// export { RoleManager } from './core/RoleManager';
-// export { PasswordHasher } from './core/PasswordHasher';
-// export { TokenService } from './core/TokenService';
+// Core
+export { UserManager } from './core/UserManager';
+export type { LockoutConfig } from './core/UserManager';
+export { RoleManager } from './core/RoleManager';
+export { PasswordHasher } from './core/PasswordHasher';
+export { TokenService } from './core/TokenService';
 
 // Stores
-// export { KnexUserStore } from './stores/knex/KnexUserStore';
-// export { KnexRoleStore } from './stores/knex/KnexRoleStore';
+export { KnexUserStore } from './stores/knex/KnexUserStore';
+export { KnexRoleStore } from './stores/knex/KnexRoleStore';
 
 // Migrations
-// export { createTables } from './migrations/tables';
+export { createTables } from './migrations/tables';
