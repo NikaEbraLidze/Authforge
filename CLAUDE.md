@@ -89,9 +89,9 @@ Follow this order when implementing. Each step builds on the previous:
 8. ~~KnexRoleStore (`src/stores/knex/KnexRoleStore.ts`)~~ DONE
 9. ~~UserManager (`src/core/UserManager.ts`)~~ DONE
 10. ~~RoleManager (`src/core/RoleManager.ts`)~~ DONE
-11. NestJS adapter (`src/adapters/nestjs/`)
-12. Express adapter (`src/adapters/express/`)
-13. Barrel export (`src/index.ts`) — uncomment as implementations land
+11. ~~NestJS adapter (`src/adapters/nestjs/`)~~ DONE
+12. ~~Express adapter (`src/adapters/express/`)~~ DONE
+13. ~~Barrel export (`src/index.ts`) — uncomment as implementations land~~ DONE
 14. Unit tests (`tests/unit/`)
 15. Integration tests (`tests/integration/`)
 16. README.md
